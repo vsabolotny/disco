@@ -18,7 +18,9 @@ This is a minimal FastAPI application with a single `/health` endpoint for envir
    ```
 2. Set environment variables (create a `.env` file or export them in your shell):
    ```
-   ENVIRONMENT=development
+   ENVIRONMENT=environment
+   REPO=your_ecr_repo_url
+   REGION=your_aws_region
    ```
 3. Start the app:
    ```bash
@@ -30,8 +32,8 @@ This is a minimal FastAPI application with a single `/health` endpoint for envir
 To build and run with Docker:
 
 ```bash
-docker build -t disco .
-docker run --env-file .env -p 8000:8000 disco
+docker build --platform linux/amd64 -t disco .
+docker run --env-file .env -p 8080:8080 disco
 ```
 
 ## Deployment to AWS ECR
@@ -44,12 +46,8 @@ The `deploy.py` script automates building, tagging, and pushing the Docker image
 
 **Deploy with:**
 ```bash
-export ECR_REPO=your_ecr_repo_url
-export REGION=your_aws_region
 python deploy.py
 ```
 
 ## Endpoint
 - `GET /health` → `{ "status": "ok", "environment": "<value of ENVIRONMENT>" }` 
-
-The `ENVIRONMENT` variable is read from the environment (or `.env` file if running locally). 
