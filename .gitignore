@@ -51,9 +51,5 @@ ENV/
 env.bak/
 venv/
 
-# Docker
-*.dockerignore
-Dockerfile
-
 # VS Code
 .vscode/ 
